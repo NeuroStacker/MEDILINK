@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="feature-container">
+    <div class="feature-header">
+        <h2><i class="fas fa-robot"></i> Health Chatbot</h2>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+    </div>
+    
+    <div class="feature-content">
+        <div class="feature-description">
+            <p>Chat with our AI health assistant to get answers to your health-related questions.</p>
+        </div>
+        
+        <div class="chat-container" id="chat-container">
+            <div class="chat-message bot-message">
+                Hello! I'm your MediLink health assistant. How can I help you today?
+            </div>
+        </div>
+        
+        <form id="chat-form" class="chat-form">
+            <input type="text" id="chat-input" class="speech-input" placeholder="Type your question here..." required>
+            <button type="button" id="speech-to-text" class="voice-btn"><i class="fas fa-microphone"></i></button>
+            <button type="submit" class="btn">Send</button>
+        </form>
+        
+        <div class="chat-suggestions">
+            <h3>Suggested Questions</h3>
+            <ul>
+                <li><a href="#" class="suggestion-link">What are the symptoms of diabetes?</a></li>
+                <li><a href="#" class="suggestion-link">How can I improve my sleep quality?</a></li>
+                <li><a href="#" class="suggestion-link">What are the side effects of ibuprofen?</a></li>
+                <li><a href="#" class="suggestion-link">How often should I exercise?</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Add click handlers for suggestion links
+    document.addEventListener('DOMContentLoaded', function() {
+        const suggestionLinks = document.querySelectorAll('.suggestion-link');
+        const chatInput = document.getElementById('chat-input');
+        const chatForm = document.getElementById('chat-form');
+        
+        suggestionLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                chatInput.value = this.textContent;
+                chatForm.dispatchEvent(new Event('submit'));
+            });
+        });
+    });
+</script>
+{% endblock %} 

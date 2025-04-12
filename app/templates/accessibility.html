@@ -1,0 +1,137 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="feature-container">
+    <div class="feature-header">
+        <h2><i class="fas fa-universal-access"></i> Accessibility Features</h2>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+    </div>
+    
+    <div class="feature-content">
+        <div class="feature-description">
+            <p>MediLink provides a range of accessibility features to ensure everyone can use our platform comfortably.</p>
+        </div>
+        
+        <div class="accessibility-controls">
+            <div class="control-section">
+                <h3>Text-to-Speech</h3>
+                <p>Have page content read aloud to you.</p>
+                <button id="text-to-speech" class="voice-btn"><i class="fas fa-volume-up"></i></button>
+                <div class="control-info">
+                    <p>Click this button to have the current page content read aloud.</p>
+                </div>
+            </div>
+            
+            <div class="control-section">
+                <h3>Speech-to-Text</h3>
+                <p>Speak instead of typing.</p>
+                <div class="form-group">
+                    <label for="speech-input">Try it out:</label>
+                    <div class="input-with-button">
+                        <input type="text" id="speech-input" class="speech-input" placeholder="Your spoken text will appear here">
+                        <button id="speech-to-text" class="voice-btn"><i class="fas fa-microphone"></i></button>
+                    </div>
+                </div>
+                <div class="control-info">
+                    <p>Click the microphone button and speak. Your words will be converted to text.</p>
+                </div>
+            </div>
+            
+            <div class="control-section">
+                <h3>Display Settings</h3>
+                <div class="display-settings">
+                    <div class="setting-item">
+                        <label for="font-size">Font Size</label>
+                        <select id="font-size" class="setting-control">
+                            <option value="normal">Normal</option>
+                            <option value="large">Large</option>
+                            <option value="x-large">Extra Large</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label for="contrast">Contrast</label>
+                        <select id="contrast" class="setting-control">
+                            <option value="normal">Normal</option>
+                            <option value="high">High Contrast</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="accessibility-info">
+            <h3>Keyboard Shortcuts</h3>
+            <div class="shortcuts-list">
+                <div class="shortcut-item">
+                    <div class="shortcut-key">Alt + H</div>
+                    <div class="shortcut-description">Return to Dashboard</div>
+                </div>
+                <div class="shortcut-item">
+                    <div class="shortcut-key">Alt + S</div>
+                    <div class="shortcut-description">Start Speech Recognition</div>
+                </div>
+                <div class="shortcut-item">
+                    <div class="shortcut-key">Alt + R</div>
+                    <div class="shortcut-description">Read Page Aloud</div>
+                </div>
+                <div class="shortcut-item">
+                    <div class="shortcut-key">Alt + C</div>
+                    <div class="shortcut-description">Open Chatbot</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Font size control
+        const fontSizeSelect = document.getElementById('font-size');
+        if (fontSizeSelect) {
+            fontSizeSelect.addEventListener('change', function() {
+                const fontSize = this.value;
+                document.body.style.fontSize = fontSize === 'normal' ? '16px' : 
+                                              fontSize === 'large' ? '18px' : '20px';
+            });
+        }
+        
+        // Contrast control
+        const contrastSelect = document.getElementById('contrast');
+        if (contrastSelect) {
+            contrastSelect.addEventListener('change', function() {
+                const contrast = this.value;
+                if (contrast === 'high') {
+                    document.body.classList.add('high-contrast');
+                } else {
+                    document.body.classList.remove('high-contrast');
+                }
+            });
+        }
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.altKey) {
+                switch(e.key) {
+                    case 'h':
+                        window.location.href = "{{ url_for('dashboard') }}";
+                        break;
+                    case 's':
+                        const speechBtn = document.getElementById('speech-to-text');
+                        if (speechBtn) speechBtn.click();
+                        break;
+                    case 'r':
+                        const ttsBtn = document.getElementById('text-to-speech');
+                        if (ttsBtn) ttsBtn.click();
+                        break;
+                    case 'c':
+                        window.location.href = "{{ url_for('chatbot') }}";
+                        break;
+                }
+            }
+        });
+    });
+</script>
+{% endblock %} 

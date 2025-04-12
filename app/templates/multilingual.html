@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="feature-container">
+    <div class="feature-header">
+        <h2><i class="fas fa-language"></i> Multilingual Support</h2>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+    </div>
+    
+    <div class="feature-content">
+        <div class="feature-description">
+            <p>Select your preferred language to translate the MediLink interface.</p>
+        </div>
+        
+        <div class="language-selector">
+            <form method="POST">
+                <div class="form-group">
+                    <label for="language"><i class="fas fa-globe"></i> Select Language</label>
+                    <select id="language" name="language" required>
+                        {% for language in languages %}
+                        <option value="{{ language }}">{{ language }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Apply Translation</button>
+            </form>
+        </div>
+        
+        <div class="translated-preview">
+            <h3>Preview</h3>
+            <div class="preview-section">
+                <h4>{{ content.title }}</h4>
+                <p class="welcome-text">{{ content.welcome }}</p>
+                <p>{{ content.description }}</p>
+                
+                <div class="preview-ui">
+                    <div class="preview-button btn">Login</div>
+                    <div class="preview-button btn">Register</div>
+                    <div class="preview-nav">
+                        <span>Home</span>
+                        <span>Profile</span>
+                        <span>Settings</span>
+                        <span>Logout</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="language-info">
+            <h3>Available Features in All Languages</h3>
+            <ul class="feature-list">
+                <li><i class="fas fa-file-medical"></i> OCR Prescription Support</li>
+                <li><i class="fas fa-calendar-check"></i> Medical Test Booking</li>
+                <li><i class="fas fa-stethoscope"></i> AI Symptom Checker</li>
+                <li><i class="fas fa-pills"></i> Pharmacy Integration</li>
+                <li><i class="fas fa-ambulance"></i> Emergency Alert</li>
+                <li><i class="fas fa-comments"></i> Community Support</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %} 

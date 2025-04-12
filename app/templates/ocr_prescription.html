@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="feature-container">
+    <div class="feature-header">
+        <h2><i class="fas fa-file-medical"></i> OCR Prescription Support</h2>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+    </div>
+    
+    <div class="feature-content">
+        <div class="feature-description">
+            <p>Upload your prescription image to extract text and get a simplified explanation of your medications.</p>
+        </div>
+        
+        {% if not extracted_text %}
+        <div class="upload-section">
+            <form method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="prescription"><i class="fas fa-upload"></i> Upload Prescription Image</label>
+                    <input type="file" id="prescription" name="prescription" accept="image/*" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Analyze Prescription</button>
+            </form>
+        </div>
+        {% else %}
+        <div class="result-section">
+            <div class="prescription-details">
+                <h3>Extracted Prescription Text</h3>
+                <div class="extracted-text">
+                    <pre>{{ extracted_text }}</pre>
+                </div>
+                
+                <h3>Simplified Explanation</h3>
+                <div class="explanation">
+                    {{ explanation | safe }}
+                </div>
+            </div>
+            
+            <div class="prescription-image">
+                <h3>Uploaded Prescription</h3>
+                <img src="{{ url_for('static', filename=image_path) }}" alt="Prescription Image">
+            </div>
+            
+            <div class="action-buttons">
+                <a href="{{ url_for('ocr_prescription') }}" class="btn btn-secondary">Upload Another</a>
+                <a href="{{ url_for('pharmacy') }}" class="btn btn-primary">Send to Pharmacy</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,110 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="dashboard">
+    <div class="welcome-banner">
+        <h2>Welcome to MediLink, {{ session.username }}</h2>
+        <p>Your personalized healthcare accessibility platform</p>
+    </div>
+    
+    <div class="feature-cards">
+        <div class="feature-card">
+            <div class="card-icon"><i class="fas fa-file-medical"></i></div>
+            <h3>OCR Prescription</h3>
+            <p>Upload and analyze your prescriptions</p>
+            <a href="{{ url_for('ocr_prescription') }}" class="btn">Access</a>
+        </div>
+        
+        <div class="feature-card">
+            <div class="card-icon"><i class="fas fa-language"></i></div>
+            <h3>Multilingual Support</h3>
+            <p>Use MediLink in your language</p>
+            <a href="{{ url_for('multilingual') }}" class="btn">Access</a>
+        </div>
+        
+        <div class="feature-card">
+            <div class="card-icon"><i class="fas fa-calendar-check"></i></div>
+            <h3>Medical Test Booking</h3>
+            <p>Schedule medical tests easily</p>
+            <a href="{{ url_for('test_booking') }}" class="btn">Access</a>
+        </div>
+        
+        <div class="feature-card">
+            <div class="card-icon"><i class="fas fa-universal-access"></i></div>
+            <h3>Accessibility</h3>
+            <p>Voice commands and screen reading</p>
+            <a href="{{ url_for('accessibility') }}" class="btn">Access</a>
+        </div>
+        
+        <div class="feature-card">
+            <div class="card-icon"><i class="fas fa-smile"></i></div>
+            <h3>Therapy Tracker</h3>
+            <p>Track your mood and therapy progress</p>
+            <a href="{{ url_for('therapy_tracker') }}" class="btn">Access</a>
+        </div>
+        
+        <div class="feature-card">
+            <div class="card-icon"><i class="fas fa-stethoscope"></i></div>
+            <h3>Symptom Checker</h3>
+            <p>AI-powered symptom analysis</p>
+            <a href="{{ url_for('symptom_checker') }}" class="btn">Access</a>
+        </div>
+        
+        <div class="feature-card">
+            <div class="card-icon"><i class="fas fa-heartbeat"></i></div>
+            <h3>Wearable Integration</h3>
+            <p>Connect health devices</p>
+            <a href="{{ url_for('wearable_integration') }}" class="btn">Access</a>
+        </div>
+        
+        <div class="feature-card">
+            <div class="card-icon"><i class="fas fa-pills"></i></div>
+            <h3>Pharmacy</h3>
+            <p>Order medications online</p>
+            <a href="{{ url_for('pharmacy') }}" class="btn">Access</a>
+        </div>
+        
+        <div class="feature-card">
+            <div class="card-icon"><i class="fas fa-ambulance"></i></div>
+            <h3>Emergency Alert</h3>
+            <p>Quick emergency assistance</p>
+            <a href="{{ url_for('emergency') }}" class="btn">Access</a>
+        </div>
+        
+        <div class="feature-card">
+            <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+            <h3>Health Analytics</h3>
+            <p>View personalized health trends</p>
+            <a href="{{ url_for('analytics') }}" class="btn">Access</a>
+        </div>
+        
+        <div class="feature-card">
+            <div class="card-icon"><i class="fas fa-comments"></i></div>
+            <h3>Community Forum</h3>
+            <p>Connect with other patients</p>
+            <a href="{{ url_for('forum') }}" class="btn">Access</a>
+        </div>
+        
+        <div class="feature-card">
+            <div class="card-icon"><i class="fas fa-file-medical-alt"></i></div>
+            <h3>Health Records</h3>
+            <p>Securely share medical reports</p>
+            <a href="{{ url_for('health_records') }}" class="btn">Access</a>
+        </div>
+        
+        <div class="feature-card">
+            <div class="card-icon"><i class="fas fa-building"></i></div>
+            <h3>Gov Schemes</h3>
+            <p>Check eligibility for healthcare programs</p>
+            <a href="{{ url_for('gov_schemes') }}" class="btn">Access</a>
+        </div>
+        
+        <div class="feature-card">
+            <div class="card-icon"><i class="fas fa-robot"></i></div>
+            <h3>Health Chatbot</h3>
+            <p>Get answers to your health queries</p>
+            <a href="{{ url_for('chatbot') }}" class="btn">Access</a>
+        </div>
+    </div>
+</div>
+{% endblock %} 

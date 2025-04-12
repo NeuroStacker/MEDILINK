@@ -1,0 +1,149 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="feature-container">
+    <div class="feature-header">
+        <h2><i class="fas fa-smile"></i> Therapy Tracker</h2>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+    </div>
+    
+    <div class="feature-content">
+        <div class="feature-description">
+            <p>Track your mood and therapy progress over time to better understand your mental health patterns.</p>
+        </div>
+        
+        <div class="mood-entry">
+            <h3>Record Today's Mood</h3>
+            <form method="POST">
+                <div class="form-group">
+                    <label for="date"><i class="fas fa-calendar"></i> Date</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mood"><i class="fas fa-heart"></i> Mood (1-10)</label>
+                    <div class="range-with-value">
+                        <input type="range" id="mood" name="mood" min="1" max="10" value="5" required>
+                        <span id="mood-value">5</span>
+                    </div>
+                    <div class="mood-range-labels">
+                        <span>Very Low</span>
+                        <span>Neutral</span>
+                        <span>Very High</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="notes"><i class="fas fa-sticky-note"></i> Notes (optional)</label>
+                    <textarea id="notes" name="notes" rows="3" placeholder="What's on your mind today?"></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Record Mood</button>
+            </form>
+        </div>
+        
+        {% if graph_data %}
+        <div class="mood-graph">
+            <h3>Mood Trends</h3>
+            <div class="graph-container">
+                <img src="data:image/png;base64,{{ graph_data }}" alt="Mood Trend Graph">
+            </div>
+        </div>
+        {% endif %}
+        
+        {% if mood_data %}
+        <div class="mood-history">
+            <h3>Mood History</h3>
+            <div class="table-container">
+                <table class="mood-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Mood</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for entry in mood_data %}
+                        <tr>
+                            <td>{{ entry.date }}</td>
+                            <td>
+                                <div class="mood-indicator">
+                                    <span class="mood-value">{{ entry.mood }}/10</span>
+                                    <div class="mood-bar" style="width: {{ entry.mood * 10 }}%; background-color: 
+                                        {% if entry.mood >= 8 %}#28a745
+                                        {% elif entry.mood >= 5 %}#ffc107
+                                        {% else %}#dc3545{% endif %};">
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{{ entry.notes }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+        
+        <div class="therapy-resources">
+            <h3>Mental Wellness Resources</h3>
+            <div class="resources-list">
+                <div class="resource-item">
+                    <div class="resource-icon"><i class="fas fa-book"></i></div>
+                    <div class="resource-content">
+                        <h4>Journaling Techniques</h4>
+                        <p>Learn how daily journaling can improve your mental health.</p>
+                    </div>
+                </div>
+                <div class="resource-item">
+                    <div class="resource-icon"><i class="fas fa-spa"></i></div>
+                    <div class="resource-content">
+                        <h4>Meditation Guides</h4>
+                        <p>Simple meditation exercises for stress reduction.</p>
+                    </div>
+                </div>
+                <div class="resource-item">
+                    <div class="resource-icon"><i class="fas fa-brain"></i></div>
+                    <div class="resource-content">
+                        <h4>Cognitive Behavioral Techniques</h4>
+                        <p>Practical CBT exercises to manage negative thoughts.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set today's date as default
+        const dateInput = document.getElementById('date');
+        if (dateInput) {
+            const today = new Date().toISOString().substr(0, 10);
+            dateInput.value = today;
+        }
+        
+        // Update mood value display when slider moves
+        const moodInput = document.getElementById('mood');
+        const moodValue = document.getElementById('mood-value');
+        
+        if (moodInput && moodValue) {
+            moodInput.addEventListener('input', function() {
+                moodValue.textContent = this.value;
+                
+                // Change color based on mood
+                if (this.value >= 8) {
+                    moodValue.style.color = '#28a745'; // Green
+                } else if (this.value >= 5) {
+                    moodValue.style.color = '#ffc107'; // Yellow
+                } else {
+                    moodValue.style.color = '#dc3545'; // Red
+                }
+            });
+        }
+    });
+</script>
+{% endblock %} 
